@@ -7,11 +7,11 @@ library.
 "Port" may be too strong a word, though... perhaps "heavily inspired by".
 Additional inspiration was taken from:
 
+* cl-who (`darcs repo`_, `project page`_)
+
 * `Twisted's stan syntax`_ for representing HTML as S-expressions.
   Additionally, spasm includes some of the functionality provided by hickory
   (Clojure).
-
-* cl-who (`darcs repo`_, `project page`_)
 
 .. Links:
 .. _Hiccup:
