@@ -1,4 +1,9 @@
-(asdf:defsystem spasm
+(defpackage #:spasm-system
+  (:use #:cl #:asdf))
+
+(in-package #:spasm-system)
+
+(defsystem spasm
   :serial t
   :description "A Common Lisp port of Hiccup, Clojure's HTML-building, vector- and map-based library"
   :author "Duncan McGreggor <duncan@cogitat.io>"
@@ -13,3 +18,7 @@
                (:file "page")
                (:file "util")))
 
+(defsystem spasm-test
+  :depends-on (#:spasm)
+  :components ((:module "tests"
+                :components ((:file "core")))))
