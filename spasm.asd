@@ -9,16 +9,21 @@
   :author "Duncan McGreggor <duncan@cogitat.io>"
   :license "BSD"
   :version "0.1"
-  :components ((:file "package")
-               (:file "core")
-               (:file "macro")
-               (:file "element")
-               (:file "form")
-               (:file "middleware")
-               (:file "page")
-               (:file "util")))
+  :components (
+    (:module "src"
+     :components (
+       (:file "package")
+       (:file "core")
+       (:file "macro")
+       (:file "element")
+       (:file "form")
+       (:file "middleware")
+       (:file "page")
+       (:file "util")))))
 
 (defsystem spasm-test
   :depends-on (#:spasm)
-  :components ((:module "tests"
-                :components ((:file "core")))))
+  :components (
+    (:module "tests"
+     :components (
+       (:file "core")))))
