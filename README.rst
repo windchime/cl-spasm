@@ -25,7 +25,7 @@ Install
 
 Add the following in your project's ``(defpackage`` call:
 
-.. code: lisp
+.. code:: lisp
 
    (:use :cl :spasm)
 
@@ -44,7 +44,7 @@ Quickstart
 
 Here is a basic example of using spasm:
 
-.. code: lisp
+.. code:: lisp
 
   * (use-package :spasm)
 
@@ -52,7 +52,7 @@ Here is a basic example of using spasm:
 
 Or, if you are running from the git checkout:
 
-.. code: lisp
+.. code:: lisp
 
   * (ql:quickload 'spasm)
 
@@ -76,7 +76,7 @@ Differences with CL-WHO:
 Like Clojure's Hiccup, Spasm provides a CSS-like shortcut for denoting `id` and
 `class` attributes:
 
-.. code: lisp
+.. code:: lisp
 
   (html (:div#foo.bar.baz "bang"))
   "<div id='foo' class='bar baz'>bang</div>"
