@@ -9,13 +9,13 @@ Additional inspiration was taken from:
 
 * cl-who (`darcs repo`_, `project page`_)
 
-* `Twisted's stan syntax`_ for representing HTML as S-expressions.
-  Additionally, spasm includes some of the functionality provided by hickory
-  (Clojure).
+* `Twisted's stan syntax`_ (template tags) for representing HTML as
+  S-expressions. Additionally, spasm includes some of the functionality
+  provided by hickory (Clojure).
 
 .. Links:
 .. _Hiccup:
-.. _Twisted's stan syntax:
+.. _Twisted's stan syntax: http://twistedmatrix.com/trac/browser/trunk/twisted/web/template.py#L518
 .. _hickory:
 .. _darcs repo: http://common-lisp.net/~loliveira/ediware/cl-who/
 .. _project page: http://weitz.de/cl-who/
