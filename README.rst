@@ -58,11 +58,16 @@ Or, if you are running from the git checkout:
 
   (SPASM)
 
+  * (in-package :spasm)
+
+  #<PACKAGE "SPASM">
+
   * (html (:span :class "foo" "bar"))
   "<span class='foo'>bar</span>"
 
-If you are familiar with CL-WHO, then this will look quite familiar. Each list
-beginning with a keyword is transformed into an XHTML tag of the same name.
+If you are familiar with CL-WHO, then this will look quite familiar; it's much
+closer to CL-WHO's usage than Clojure's Hiccup. Each list beginning with a
+keyword is transformed into an XHTML tag of the same name.
 
 Differences with CL-WHO:
 
