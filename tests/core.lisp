@@ -2,13 +2,13 @@
 ;;;
 ;;; * (load "tests/core.lisp")
 ;;;
-(ql:quickload "xlunit")
+(ql:quickload 'xlunit)
 
 
-(defpackage :edp-intro-tests
-  (:use :cl :xlunit :spasm))
+(defpackage #:spasm-tests
+  (:use #:cl #:xlunit #:spasm))
 
-(in-package :spasm-tests)
+(in-package #:spasm-tests)
 
 (defclass html-test-case (test-case)
   ())
