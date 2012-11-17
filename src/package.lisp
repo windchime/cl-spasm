@@ -1,5 +1,5 @@
-(defpackage :spasm
-  (:use :cl)
+(defpackage #:spasm
+  (:use #:cl)
   (:export
     ; core
     #:html
@@ -41,8 +41,10 @@
     #:xhtml-tag
     #:xml-declaration
     ; util
+    #:*regex-id-class*
     #:as-str
     #:escape-html
+    #:parse-initial-tag
     #:to-str
     #:to-uri
     #:url
