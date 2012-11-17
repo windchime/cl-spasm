@@ -1,5 +1,8 @@
+(ql:quickload 'asdf)
+(ql:quickload 'cl-ppcre)
+
 (defpackage #:spasm-system
-  (:use #:cl #:asdf))
+  (:use #:cl #:asdf #:cl-ppcre))
 
 (in-package #:spasm-system)
 
