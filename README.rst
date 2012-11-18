@@ -29,6 +29,13 @@ Add the following in your project's ``(defpackage`` call:
 
    (:use :cl :spasm)
 
+If you would like to run the test suite, you may do the following:
+
+.. code:: lisp
+
+   * (ql:quickload 'spasm)
+   * (ql:quickload 'spasm-tests)
+   * (spasm-tests:run-spasm-tests)
 
 Documentation
 -------------

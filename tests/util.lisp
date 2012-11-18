@@ -2,16 +2,32 @@
 ;;;
 ;;; * (load "tests/core.lisp")
 ;;;
-(ql:quickload 'xlunit)
-
-
-(defpackage #:spasm-tests
-  (:use #:cl #:xlunit #:spasm))
-
 (in-package #:spasm-tests)
 
-(defclass regex-test-case (test-case)
-  ())
+(use-package :spasm)
 
-(def-test-method test-XXX ((test html-test-case))
-  ())
+(deftestsuite parse-initial-tag-test-case (spasm-test-suite) ())
+
+(addtest (parse-initial-tag-test-case)
+  test-tag-only
+  (ensure-same
+    '(":div" nil nil)
+    (parse-initial-tag ":div")))
+
+(addtest (parse-initial-tag-test-case)
+  test-tag-and-id
+  (ensure-same
+    '(":div" "cssid" nil)
+    (parse-initial-tag ":div#cssid")))
+
+(addtest (parse-initial-tag-test-case)
+  test-tag-id-one-class
+  (ensure-same
+    '(":div" "cssid" "class")
+    (parse-initial-tag ":div#cssid.class")))
+
+(addtest (parse-initial-tag-test-case)
+  test-tag-id-classes
+  (ensure-same
+    '(":div" "cssid" "class1.class2.class3")
+    (parse-initial-tag ":div#cssid.class1.class2.class3")))

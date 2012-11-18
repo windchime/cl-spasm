@@ -2,16 +2,25 @@
 ;;;
 ;;; * (load "tests/core.lisp")
 ;;;
-(ql:quickload 'xlunit)
-
-
 (defpackage #:spasm-tests
-  (:use #:cl #:xlunit #:spasm))
+  (:use #:cl #:lift #:spasm)
+  (:export #:run-spasm-tests))
 
 (in-package #:spasm-tests)
 
-(defclass html-test-case (test-case)
-  ())
+(deftestsuite spasm-test-suite () ())
 
-(def-test-method test-XXX ((test html-test-case))
-  ())
+(defun run-spasm-tests (&optional (suite 'spasm-test-suite))
+  (let ((*test-print-testsuite-names* t)
+        (*test-print-test-case-names* t)
+        (*lift-debug-output* t)
+        (*test-describe-if-not-successful?* t))
+
+    (describe (run-tests :suite suite
+                         :report-pathname nil))))
+
+(deftestsuite html-test-case (spasm-test-suite) ())
+
+(addtest (html-test-case)
+  test-XXX
+  (ensure-same "a" "a"))

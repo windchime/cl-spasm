@@ -1,5 +1,6 @@
 (ql:quickload 'asdf)
 (ql:quickload 'cl-ppcre)
+(ql:quickload 'lift)
 
 (defpackage #:spasm-system
   (:use #:cl #:asdf #:cl-ppcre))
@@ -24,9 +25,10 @@
        (:file "page")
        (:file "util")))))
 
-(defsystem spasm-test
+(defsystem spasm-tests
   :depends-on (#:spasm)
   :components (
     (:module "tests"
      :components (
-       (:file "core")))))
+       (:file "core")
+       (:file "util")))))
