@@ -8,6 +8,7 @@
     #:defhtml
     #:wrap-attrs
     ; element
+    #:*container-tags*
     #:image
     #:javascript-tag
     #:link-to

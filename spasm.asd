@@ -31,4 +31,5 @@
     (:module "tests"
      :components (
        (:file "core")
+       (:file "element")
        (:file "util")))))
