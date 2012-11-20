@@ -17,5 +17,7 @@
             id parsed-id
             classes (substitute #\Space #\. parsed-classes)))
     (if (eql as-list t)
+      ; if a list is required, return that now
       (return-from parse-initial-tag (list tag-name id classes))
+      ; otherwise, just return the values (the default behaviour)
       (values tag-name id classes))))
