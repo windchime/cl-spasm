@@ -12,22 +12,23 @@
   test-tag-only
   (ensure-same
     '(":div" nil nil)
-    (parse-initial-tag ":div")))
+    (multiple-value-list (parse-initial-tag ":div"))))
 
 (addtest (parse-initial-tag-test-case)
   test-tag-and-id
   (ensure-same
     '(":div" "cssid" nil)
-    (parse-initial-tag ":div#cssid")))
+    (multiple-value-list (parse-initial-tag ":div#cssid"))))
 
 (addtest (parse-initial-tag-test-case)
   test-tag-id-one-class
   (ensure-same
     '(":div" "cssid" "class")
-    (parse-initial-tag ":div#cssid.class")))
+    (multiple-value-list (parse-initial-tag ":div#cssid.class"))))
 
 (addtest (parse-initial-tag-test-case)
   test-tag-id-classes
   (ensure-same
     '(":div" "cssid" "class1 class2 class3")
-    (parse-initial-tag ":div#cssid.class1.class2.class3")))
+    (multiple-value-list
+      (parse-initial-tag ":div#cssid.class1.class2.class3"))))

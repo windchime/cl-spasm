@@ -17,4 +17,4 @@
       (setf tag-name parsed-tag-name
             id parsed-id
             classes (substitute #\Space #\. parsed-classes)))
-    (list tag-name id classes)))
+    (values tag-name id classes)))
