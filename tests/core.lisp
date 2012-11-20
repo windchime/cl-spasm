@@ -36,3 +36,9 @@
   (ensure-same
     "<p class='question'>How YOU doin'?</p>"
     (html (:p :class "question" "How YOU doin'?"))))
+
+(addtest (html-test-case)
+  test-css-id-and-class
+  (ensure-same
+    "<div id='foo' class='bar baz'>bang</div>"
+    (html (:div#foo.bar.baz "bang"))))
