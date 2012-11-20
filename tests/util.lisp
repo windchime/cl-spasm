@@ -8,6 +8,7 @@
 
 (deftestsuite parse-initial-tag-test-case (spasm-test-suite) ())
 
+;; without the keyword parameter, return values
 (addtest (parse-initial-tag-test-case)
   test-tag-only
   (ensure-same
@@ -32,3 +33,28 @@
     '(":div" "cssid" "class1 class2 class3")
     (multiple-value-list
       (parse-initial-tag ":div#cssid.class1.class2.class3"))))
+
+;; with the keyword parameter, return a list
+(addtest (parse-initial-tag-test-case)
+  test-tag-only-with-keyword-arg
+  (ensure-same
+    '(":div" nil nil)
+    (parse-initial-tag ":div" :as-list t)))
+
+(addtest (parse-initial-tag-test-case)
+  test-tag-and-id-with-keyword-arg
+  (ensure-same
+    '(":div" "cssid" nil)
+    (parse-initial-tag ":div#cssid" :as-list t)))
+
+(addtest (parse-initial-tag-test-case)
+  test-tag-id-one-class-with-keyword-arg
+  (ensure-same
+    '(":div" "cssid" "class")
+    (parse-initial-tag ":div#cssid.class" :as-list t)))
+
+(addtest (parse-initial-tag-test-case)
+  test-tag-id-classes-with-keyword-arg
+  (ensure-same
+    '(":div" "cssid" "class1 class2 class3")
+    (parse-initial-tag ":div#cssid.class1.class2.class3" :as-list t)))
