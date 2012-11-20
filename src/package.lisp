@@ -9,6 +9,7 @@
     #:wrap-attrs
     ; element
     #:*container-tags*
+    #:container-tag?
     #:image
     #:javascript-tag
     #:link-to
