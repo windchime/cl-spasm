@@ -16,5 +16,5 @@
       (*regex-id-class* tag)
       (setf tag-name parsed-tag-name
             id parsed-id
-            classes parsed-classes))
+            classes (substitute #\Space #\. parsed-classes)))
     (list tag-name id classes)))

@@ -29,5 +29,5 @@
 (addtest (parse-initial-tag-test-case)
   test-tag-id-classes
   (ensure-same
-    '(":div" "cssid" "class1.class2.class3")
+    '(":div" "cssid" "class1 class2 class3")
     (parse-initial-tag ":div#cssid.class1.class2.class3")))
