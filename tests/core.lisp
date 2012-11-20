@@ -22,5 +22,17 @@
 (deftestsuite html-test-case (spasm-test-suite) ())
 
 (addtest (html-test-case)
-  test-XXX
-  (ensure-same "a" "a"))
+  test-non-container-tags
+  (ensure-same "<br />" (html (:br)))
+  (ensure-same "<img src='loldogs.jpg' />" (html (:img :src="loldogs.jpg"))))
+
+(addtest (html-test-case)
+  test-container-tags
+  (ensure-same "<span></span>" (html (:span))))
+
+(addtest (html-test-case)
+  test-content
+  (ensure-same "<p>How YOU doin'?</p>" (html (:p "How YOU doin'?")))
+  (ensure-same
+    "<p class='question'>How YOU doin'?</p>"
+    (html (:p :class "question" "How YOU doin'?"))))
