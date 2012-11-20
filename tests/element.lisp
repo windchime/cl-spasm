@@ -16,3 +16,16 @@
   (ensure-same nil (member ':br *container-tags*))
   (ensure-same nil (member ':hl *container-tags*))
   (ensure-same nil (member ':img *container-tags*)))
+
+(addtest (container-tags-test-case)
+  test-container-tag-true
+  (ensure-same t (container-tag? ':a))
+  (ensure-same t (container-tag? ':div))
+  (ensure-same t (container-tag? ':option))
+  (ensure-same t (container-tag? ':ul)))
+
+(addtest (container-tags-test-case)
+  test-container-tag-false
+  (ensure-same nil (container-tag? ':br))
+  (ensure-same nil (container-tag? ':hl))
+  (ensure-same nil (container-tag? ':img)))

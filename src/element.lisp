@@ -6,3 +6,8 @@
        :label :li :nav :ol :option :pre :section :script :span :strong :style
        :table :textarea :title :ul)
   "A list of elements that need an explicit ending tag when rendered.")
+
+(defun container-tag? (tag)
+  "A convenience function for testing wheter a tag is a container tag or not."
+  (let ((is-in? (member tag *container-tags*)))
+    (if (eq is-in? nil) nil t)))
