@@ -2,6 +2,7 @@
   (:use #:cl)
   (:export
     ; core
+    #:compile-attr
     #:html
     ; macro
     #:defelem

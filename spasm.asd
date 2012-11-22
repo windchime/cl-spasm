@@ -1,9 +1,10 @@
 (ql:quickload 'asdf)
 (ql:quickload 'cl-ppcre)
 (ql:quickload 'lift)
+(ql:quickload 'html-entities)
 
 (defpackage #:spasm-system
-  (:use #:cl #:asdf #:cl-ppcre))
+  (:use #:cl #:asdf #:cl-ppcre #:html-entities))
 
 (in-package #:spasm-system)
 

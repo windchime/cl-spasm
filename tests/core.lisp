@@ -19,7 +19,16 @@
     (describe (run-tests :suite suite
                          :report-pathname nil))))
 
-(deftestsuite html-test-case (spasm-test-suite) ())
+;; test case for compile-* functions and methods
+(deftestsuite compile-test-case (spasm-test-suite) ())
+
+(addtest (compile-test-case)
+  test-attr
+  (ensure-same " src='./loldogs.jpg'" (compile-attr "src" "./loldogs.jpg")))
+
+;; test case for the html (macro? function? dunno yet...)
+;(deftestsuite html-test-case (spasm-test-suite) ())
+(deftestsuite html-test-case () ())
 
 (addtest (html-test-case)
   test-non-container-tags
@@ -38,7 +47,11 @@
     (html (:p :class "question" "How YOU doin'?"))))
 
 (addtest (html-test-case)
-  test-css-id-and-class
+  test-css-syntactic-sugar
+  (ensure-same "<div id='foo'></div>" (html (:div#foo)))
+  (ensure-same "<div class='bar'>" (html (:div.bar)))
+  (ensure-same "<div class='bar baz'>" (html (:div.bar.baz)))
+  (ensure-same "<div id='foo' class='bar baz'>" (html (:div#foo.bar.baz)))
   (ensure-same
     "<div id='foo' class='bar baz'>bang</div>"
     (html (:div#foo.bar.baz "bang"))))

@@ -16,6 +16,7 @@
       (setf tag-name parsed-tag-name
             id parsed-id
             classes (substitute #\Space #\. parsed-classes)))
+    ; XXX change this to a (cond)
     (if (eql as-list t)
       ; if a list is required, return that now
       (return-from parse-initial-tag (list tag-name id classes))
