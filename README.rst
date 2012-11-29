@@ -37,6 +37,12 @@ If you would like to run the test suite, you may do the following:
    * (ql:quickload 'spasm-tests)
    * (spasm-tests:run-spasm-tests)
 
+Or you can use the ``make`` target:
+
+.. code:: shell
+
+   $ make check
+
 Documentation
 -------------
 
