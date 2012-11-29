@@ -46,7 +46,9 @@
     ; util
     #:*regex-id-class*
     #:as-str
+    #:coerce-tag
     #:escape-html
+    #:normalize-element
     #:parse-initial-tag
     #:to-str
     #:to-uri

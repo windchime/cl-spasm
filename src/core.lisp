@@ -7,6 +7,10 @@
                " " name "='"
                (html-entities:encode-entities value) "'"))
 
+(defun render-element (element)
+  (multiple-value-bind (tag attrs content) (normalize-element element)
+    ))
+
 ;(defgeneric compile-element ()
 ;  (:documentation
 ;    "Returns an unevaluated form that will render the supplied list as an HTML
@@ -36,6 +40,6 @@
 ;        (t (append (collapse-list (car l))
 ;                   (collapse-list (cdr l))))))
 
-(defun html (content)
-  (list :a :b :c))
+(defmacro html (body)
+  `(list ,@body))
   ;(collapse-strings `(str @(compile-list content))))
