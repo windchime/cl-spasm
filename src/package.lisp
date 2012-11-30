@@ -10,12 +10,19 @@
     #:wrap-attrs
     ; element
     #:*container-tags*
+    #:*regex-id-class*
+    #:coerce-tag
     #:container-tag?
     #:image
     #:javascript-tag
     #:link-to
     #:mail-to
+    #:make-attrs
+    #:make-element
+    #:make-tag
+    #:normalize-element
     #:ordered-list
+    #:parse-initial-tag
     #:unordered-list
     ; form
     #:check-box
@@ -44,15 +51,4 @@
     #:xhtml-tag
     #:xml-declaration
     ; util
-    #:*regex-id-class*
-    #:as-str
-    #:coerce-tag
-    #:escape-html
-    #:normalize-element
-    #:parse-initial-tag
-    #:to-str
-    #:to-uri
-    #:url
-    #:url-encode
-    #:with-base-url
-    #:with-encoding))
+    #:concat))
