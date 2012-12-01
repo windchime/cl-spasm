@@ -10,7 +10,7 @@
 
 (defsystem spasm
   :serial t
-  :description "A Common Lisp port of Hiccup, Clojure's HTML-building, vector- and map-based library"
+  :description "A Common Lisp port of Hiccup, Clojure's HTML-building library"
   :author "Duncan McGreggor <duncan@cogitat.io>"
   :license "BSD"
   :version "0.1"
