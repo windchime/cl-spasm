@@ -13,6 +13,7 @@
     #:*regex-id-class*
     #:coerce-tag
     #:container-tag?
+    #:html-attr
     #:image
     #:javascript-tag
     #:link-to
