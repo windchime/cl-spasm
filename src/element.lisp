@@ -13,18 +13,20 @@
 
 (defun container-tag? (tag)
   "A convenience function for testing wheter a tag is a container tag or not."
-  (let ((is-in? (member tag *container-tags*)))
-    (if (eq is-in? nil) nil t)))
+  (cond ((member tag *container-tags*) t)))
 
 (defun coerce-key (key)
-  ""
+  "A utility function for getting the string value of a key.
+
+   In particular, this allows keyword symbols (e.g., :some-key) to be used as
+   strings in other parts of the code."
   (cond ((symbolp key) (string-downcase (symbol-name key)))
         (t key)))
 
-(defun html-attr (name value)
-  ""
-  (concat " " (coerce-key name) "='"
-          (html-entities:encode-entities value) "'"))
+(defun html-attr (key datum)
+  "Given a key/datum pair, create an HTML/XML attribute."
+  (concat " " (coerce-key key) "='"
+          (html-entities:encode-entities datum) "'"))
 
 (defun make-attrs (attrs)
   "Given a plist key/datum paris, create a string of HTML attributes."
