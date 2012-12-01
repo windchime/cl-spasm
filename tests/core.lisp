@@ -19,26 +19,6 @@
     (describe (run-tests :suite suite
                          :report-pathname nil))))
 
-;; test case for render-* functions and methods
-;(deftestsuite render-test-case (spasm-test-suite) ())
-(deftestsuite render-test-case () ())
-
-(addtest (render-test-case)
-  test-render-attr
-  (ensure-same " src='./loldogs.jpg'" (render-attr "src" "./loldogs.jpg")))
-
-(addtest (render-test-case)
-  test-render-element-empty-container
-  (ensure-same "" (render-element '(:span))))
-
-(addtest (render-test-case)
-  test-render-element-empty-non-container
-  (ensure-same "" (render-element '(:br))))
-
-(addtest (render-test-case)
-  test-render-element-content
-  (ensure-same "" (render-element '(:p "my paragraph"))))
-
 ;; test case for compile-* functions and methods
 (deftestsuite compile-test-case (spasm-test-suite) ())
 

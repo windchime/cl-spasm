@@ -1,15 +1,5 @@
 (in-package #:spasm)
 
-(defparameter *end-tag* " />")
-
-(defun compile-attr (name value)
-  (concatenate 'string
-               " " name "='"
-               (html-entities:encode-entities value) "'"))
-
-(defun render-element (element)
-  (multiple-value-bind (tag attrs content) (normalize-element element)
-    ))
 
 ;(defgeneric compile-element ()
 ;  (:documentation
