@@ -33,6 +33,32 @@
   (ensure-same nil (container-tag? ':img)))
 
 
+;;; unit tests for element.html-attr
+;;;
+(deftestsuite html-attr-test-case (spasm-test-suite) ())
+
+(addtest (html-attr-test-case)
+  test-html-attr
+  (ensure-same " src='./loldogs.jpg'" (html-attr "src" "./loldogs.jpg"))
+  (ensure-same
+    " src='&lt;whacky name&gt;.jpg'"
+    (html-attr "src" "<whacky name>.jpg")))
+
+
+;;; unit tests for element.make-attrs
+;;;
+(deftestsuite make-attrs-test-case (spasm-test-suite) ())
+
+(addtest (make-attrs-test-case)
+  test-make-attrs
+  (ensure-same "" (make-attrs nil))
+  (ensure-same " a='1'" (make-attrs '((:a "1"))))
+  (ensure-same " a='1' b='2'" (make-attrs '((:a "1") (:b "2"))))
+  (ensure-same
+    " a='1' b='2' c='3' d='4' e='5'"
+    (make-attrs '((:a "1") (:b "2") (:c "3") (:d "4") (:e "5")))))
+
+
 ;;; unit tests for element.make-tag
 ;;;
 (deftestsuite make-tag-test-case (spasm-test-suite) ())
@@ -54,17 +80,14 @@
   (ensure-same "</section>" (make-tag "section" :closing t)))
 
 
-;;; unit tests for element.coerce-tag
+;;; unit tests for element.coerce-key
 ;;;
-(deftestsuite coerce-tag-test-case (spasm-test-suite) ())
+(deftestsuite coerce-key-test-case (spasm-test-suite) ())
 
-(addtest (coerce-tag-test-case)
+(addtest (coerce-key-test-case)
   test-string
-  (ensure-same "div" (coerce-tag "div")))
-
-(addtest (coerce-tag-test-case)
-  test-symbol
-  (ensure-same "div" (coerce-tag :div)))
+  (ensure-same "div" (coerce-key "div"))
+  (ensure-same "div" (coerce-key :div)))
 
 
 ;;; unit tests for element.parse-initial-tag

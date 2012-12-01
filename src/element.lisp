@@ -16,9 +16,20 @@
   (let ((is-in? (member tag *container-tags*)))
     (if (eq is-in? nil) nil t)))
 
-(defun make-attrs (attrs)
+(defun coerce-key (key)
   ""
-  "src='./'")
+  (cond ((symbolp key) (string-downcase (symbol-name key)))
+        (t key)))
+
+(defun html-attr (name value)
+  ""
+  (concat " " (coerce-key name) "='"
+          (html-entities:encode-entities value) "'"))
+
+(defun make-attrs (attrs)
+  "Given a plist key/datum paris, create a string of HTML attributes."
+  (apply 'concat
+         (mapcar #'(lambda (x) (apply 'html-attr x)) attrs)))
 
 (defun make-tag (tag-name &key attrs closing empty)
   "Make an opening or closing HTML tag."
@@ -27,11 +38,6 @@
         (closing (concat "</" tag-name ">"))
         (empty (concat "<" tag-name " />"))
         (t (concat "<" tag-name ">"))))
-
-(defun coerce-tag (tag)
-  ""
-  (cond ((symbolp tag) (string-downcase (symbol-name tag)))
-        (t tag)))
 
 (defun parse-initial-tag (tag &key as-list)
   "Given an XHTML tag, parse it for CSS id and/or classes.
@@ -42,7 +48,7 @@
         (id nil)
         (classes nil))
     (cl-ppcre:do-register-groups (parsed-tag-name parsed-id parsed-classes)
-      (*regex-id-class* (coerce-tag tag))
+      (*regex-id-class* (coerce-key tag))
       (setf tag-name parsed-tag-name
             id parsed-id
             classes (substitute #\Space #\. parsed-classes)))
