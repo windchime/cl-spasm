@@ -21,10 +21,3 @@
   ; pairs
   (if plist
     (list (car-pair plist) (get-pairs (cdr-pairs plist)))))
-
-
-(defun car-pair (plist)
-  "Get the first pair from a plist."
-  ; TODO this should probably be changed to return a naked nil instead of nil
-  ; in the case of an empty result
-  (list (car plist) (cadr plist)))
