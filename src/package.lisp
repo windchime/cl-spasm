@@ -51,4 +51,7 @@
     #:xhtml-tag
     #:xml-declaration
     ; util
-    #:concat))
+    #:concat
+    #:car-pair
+    #:cdr-pairs
+    #:get-pairs))
