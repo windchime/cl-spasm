@@ -39,3 +39,39 @@
       (get-pairs '(:a 1 :b 2 :c 3 :d 4 :e 5)))
     (ensure-same '((:a 1)) (get-pairs '(:a 1)))
     (ensure-same nil (get-pairs '())))
+
+
+;;; unit tests for util.merge-plists
+;;;
+(deftestsuite merge-plists-test-case (spasm-test-suite) ())
+
+(addtest (merge-plists-test-case)
+  test-simple
+    (ensure-same '() (merge-plists '() '()))
+    (ensure-same '(:a 1) (merge-plists '(:a 1) '()))
+    (ensure-same '(:a 1 :b 2) (merge-plists '(:a 1) '(:b 2)))
+    (ensure-same
+      '(:b 2 :a 1 :c 3 :d 4)
+      (merge-plists '(:a 1 :b 2) '(:c 3 :d 4)))
+    (ensure-same
+      '(:c 3 :b 2 :a 1 :d 4 :e 5)
+      (merge-plists '(:a 1 :b 2 :c 3) '(:d 4 :e 5))))
+
+(addtest (merge-plists-test-case)
+  test-overlapping-keys
+    (ensure-same '(:a 2) (merge-plists '(:a 1) '(:a 2)))
+    (ensure-same
+      '(:a 3 :b 4)
+      (merge-plists '(:a 1 :b 2) '(:a 3 :b 4)))
+    (ensure-same
+      '(:b 2 :a 3 :c 4)
+      (merge-plists '(:a 1 :b 2) '(:a 3 :c 4)))
+    (ensure-same
+      '(:a 1 :b 3 :c 4)
+      (merge-plists '(:a 1 :b 2) '(:b 3 :c 4)))
+    (ensure-same
+      '(:a 1 :c 3 :b 4)
+      (merge-plists '(:a 1 :b 2) '(:c 3 :b 4)))
+    (ensure-same
+      '(:b 2 :a 4 :c 5)
+      (merge-plists '(:a 1 :b 2 :c 3) '(:a 4 :c 5))))

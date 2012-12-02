@@ -44,3 +44,23 @@
     (do ((tail plist (cddr tail)))
         ((endp tail) (nreverse list-of-pairs))
       (push (list (car tail) (cadr tail)) list-of-pairs))))
+
+
+(defun merge-plists (p1 p2)
+  "
+  Merge two plists.
+
+  Keys in the second plist will take precedence over the first.
+
+  Note that this code was adapted from an answer on Stackoverflow provided by
+  the esteemed Rainer Joswig:
+
+    http://stackoverflow.com/questions/3398602/easy-way-to-merge-plists
+  "
+  (loop with notfound = '#:notfound
+        for (key datum) on p1 by #'cddr
+        when (eq (getf p2 key notfound) notfound)
+        do (progn
+             (push datum p2)
+             (push key p2)))
+  p2)
