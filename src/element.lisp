@@ -87,10 +87,31 @@
         (t (make-tag tag-name :attrs attrs :empty t))))
 
 (defun normalize-element (body &key as-list)
+  "
+  Bring an HTML form into a standard representation.
+
+  An HTML form could be any of the following (as well as many more):
+    * (:p)
+    * (:p 'content')
+    * (:p#myid :class 'style 1' 'content')
+    * (:p#myid.style1.style2 'content')
+
+  This function aims to unify all the different representations into a single
+  form through the following:
+    * separating the tag from the body
+    * expanding all CSS-type syntactic sugar to plists
+    * putting all attrs in a single data structure
+    * identifying the content, if any, and separating this out from the body
+  "
   (multiple-value-bind
-    (tag id classes) (parse-initial-tag (first body) :as-list as-list)
-    (let ((tag-attrs (list :id id :class classes))
-          (map-attrs (first (second body))))
-      (if map-attrs
-        (list tag (append tag-attrs map-attrs) (second (second body)))
-        (list tag tag-attrs body)))))
+    (tag id classes) (parse-initial-tag (car body) :as-list as-list)
+    (let ((tag-attrs ())
+          (map-attrs (cdr body))
+          (tag-content (last body)))
+      (cond ((keywordp (cadr (reverse body))) (setf tag-content nil))
+            (t (setf map-attrs (butlast map-attrs))))
+      (cond (id (append (:id id) tag-attrs))
+            (classes (append (:class classes) tag-attrs)))
+      (cond (map-attrs
+              (list tag (merge-plists tag-attrs map-attrs) tag-content))
+            (t (list tag tag-attrs tag-content))))))
