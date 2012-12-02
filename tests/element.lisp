@@ -161,19 +161,18 @@
 
 (addtest (normalize-element-test-case)
   test-just-tag
-  (ensure-same "" (normalize-element '(:p) :as-list t)))
+  (ensure-same "" (normalize-element '(:p))))
 
 (addtest (normalize-element-test-case)
   test-tag-and-content
-  (ensure-same "" (normalize-element '(:p "some text") :as-list t))
+  (ensure-same "" (normalize-element '(:p "some text")))
   (ensure-same
     ""
-    (normalize-element '(:p :class "some-style" "some text") :as-list t))
+    (normalize-element '(:p :class "some-style" "some text")))
   (ensure-same
     ""
     (normalize-element
-      '(:p :id "p0" :class "some-style" "some text")
-      :as-list t)))
+      '(:p :id "p0" :class "some-style" "some text"))))
 
 (addtest (normalize-element-test-case)
   test-tag-no-content
@@ -188,8 +187,7 @@
   (ensure-same
     ""
     (normalize-element
-      '(:div#cssid.class1.class2.class3)
-      :as-list t)))
+      '(:div#cssid.class1.class2.class3))))
 
 
 ;;; unit tests for element.make-element

@@ -86,7 +86,7 @@
                                    (make-tag tag-name :closing t))
         (t (make-tag tag-name :attrs attrs :empty t))))
 
-(defun normalize-element (body &key as-list)
+(defun normalize-element (body)
   "
   Bring an HTML form into a standard representation.
 
@@ -104,7 +104,7 @@
     * identifying the content, if any, and separating this out from the body
   "
   (multiple-value-bind
-    (tag id classes) (parse-initial-tag (car body) :as-list as-list)
+    (tag id classes) (parse-initial-tag (car body))
     (let ((tag-attrs ())
           (map-attrs (cdr body))
           (tag-content (last body)))
