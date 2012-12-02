@@ -75,3 +75,26 @@
     (ensure-same
       '(:b 2 :a 4 :c 5)
       (merge-plists '(:a 1 :b 2 :c 3) '(:a 4 :c 5))))
+
+
+;;; unit tests for util.ends-in-pair?
+;;;
+(deftestsuite ends-in-pair-test-case (spasm-test-suite) ())
+
+(addtest (ends-in-pair-test-case)
+  test-true
+    (ensure-same t (ends-in-pair? '(:a 1)))
+    (ensure-same t (ends-in-pair? '(:a 1 :b 2)))
+    (ensure-same t (ends-in-pair? '(:a 1 :b 2 :c 3)))
+    (ensure-same t (ends-in-pair? '(:a 1 2 3 4 :c 5)))
+    (ensure-same t (ends-in-pair? '(1 2 3 4 :c 5))))
+
+(addtest (ends-in-pair-test-case)
+  test-false
+    (ensure-same nil (ends-in-pair? '()))
+    (ensure-same nil (ends-in-pair? '(1 2)))
+    (ensure-same nil (ends-in-pair? '(1 2 3)))
+    (ensure-same nil (ends-in-pair? '(:a 1 2)))
+    (ensure-same nil (ends-in-pair? '(:a 1 2 3)))
+    (ensure-same nil (ends-in-pair? '(:a))))
+    ;)

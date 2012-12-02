@@ -64,3 +64,10 @@
              (push datum p2)
              (push key p2)))
   p2)
+
+
+(defun ends-in-pair? (mixed-data)
+  "
+  Test to see if the last two elements of a list constitute a key/data pair.
+  "
+  (keywordp (cadr (reverse mixed-data))))
