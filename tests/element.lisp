@@ -50,13 +50,22 @@
 (deftestsuite make-attrs-test-case (spasm-test-suite) ())
 
 (addtest (make-attrs-test-case)
-  test-make-attrs
+  test-make-attrs-list-of-plists
   (ensure-same "" (make-attrs nil))
   (ensure-same " a='1'" (make-attrs '((:a "1"))))
   (ensure-same " a='1' b='2'" (make-attrs '((:a "1") (:b "2"))))
   (ensure-same
     " a='1' b='2' c='3' d='4' e='5'"
     (make-attrs '((:a "1") (:b "2") (:c "3") (:d "4") (:e "5")))))
+
+(addtest (make-attrs-test-case)
+  test-make-attrs-plist
+  (ensure-same "" (make-attrs nil))
+  (ensure-same " a='1'" (make-attrs '(:a "1")))
+  (ensure-same " a='1' b='2'" (make-attrs '(:a "1" :b "2")))
+  (ensure-same
+    " a='1' b='2' c='3' d='4' e='5'"
+    (make-attrs '(:a "1" :b "2" :c "3" :d "4" :e "5"))))
 
 
 ;;; unit tests for element.make-tag
@@ -180,7 +189,7 @@
   test-make-element
   (ensure-same "<p />" (make-element "p"))
   (ensure-same
-    "<p class='section'/>"
+    "<p class='section' />"
     (make-element "p" :attrs '(:class "section")))
   (ensure-same
     "<p>some content</p>"
