@@ -32,10 +32,10 @@
     (ensure-same nil (cdr-pairs '(:a 1)))
     (ensure-same nil (cdr-pairs '())))
 
-;(addtest (pairs-test-case)
-;  test-get-pairs
-;    (ensure-same
-;      '((:a . 1) (:b . 2) (:c . 3) (:d . 4) (:e . 5))
-;      (get-pairs '(:a 1 :b 2 :c 3 :d 4 :e 5)))
-;    (ensure-same '(:a . 1) (get-pairs '(:a 1)))
-;    (ensure-same '(nil) (car-pair '())))
+(addtest (pairs-test-case)
+  test-get-pairs
+    (ensure-same
+      '((:a . 1) (:b . 2) (:c . 3) (:d . 4) (:e . 5))
+      (get-pairs '(:a 1 :b 2 :c 3 :d 4 :e 5)))
+    (ensure-same '(:a . 1) (get-pairs '(:a 1)))
+    (ensure-same '(nil) (car-pair '())))
