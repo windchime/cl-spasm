@@ -11,7 +11,7 @@
     ; element
     #:*container-tags*
     #:*regex-id-class*
-    #:coerce-tag
+    #:coerce-key
     #:container-tag?
     #:html-attr
     #:image
