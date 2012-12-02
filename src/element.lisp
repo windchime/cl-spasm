@@ -86,21 +86,11 @@
                                    (make-tag tag-name :closing t))
         (t (make-tag tag-name :attrs attrs :empty t))))
 
-;(defun normalize-element (body &key as-list)
-;  (multiple-value-bind
-;    (tag id classes) (parse-initial-tag (first body) :as-list as-list)
-;    (let ((tag-attrs (list :id id :class classes)))
-;         ((map-attrs (first (second body))))
-;      (if map-attrs
-;        (values tag (append tag-attrs map-attrs) (second (second body)))
-;        (values tag tag-attrs body)))))
-
 (defun normalize-element (body &key as-list)
-  ""
   (multiple-value-bind
     (tag id classes) (parse-initial-tag (first body) :as-list as-list)
-         (print "body: " body)
-         (print "tag " tag)
-         (print "id " id)
-         (print "classes " classes)
-         ))
+    (let ((tag-attrs (list :id id :class classes))
+          (map-attrs (first (second body))))
+      (if map-attrs
+        (list tag (append tag-attrs map-attrs) (second (second body)))
+        (list tag tag-attrs body)))))
