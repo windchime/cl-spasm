@@ -55,4 +55,5 @@
     #:concat
     #:car-pair
     #:cdr-pairs
-    #:get-pairs))
+    #:get-pairs
+    #:merge-plists))
