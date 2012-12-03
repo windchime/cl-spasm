@@ -207,6 +207,11 @@
     (multiple-value-list (normalize-element
       '(:div#cssid.class1.class2.class3 :name "aname")))))
 
+; TODO add unit tests for nested elements ...
+(addtest (normalize-element-test-case)
+  test-tag-no-content
+  )
+
 
 ;;; unit tests for element.make-element
 ;;;
