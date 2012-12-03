@@ -121,6 +121,7 @@
                ;; body
                (cond ((/= (length body) 1)
                       (setf tag-content (car (last body)))))
+               ; TODO the nested bit here needs a unit test!
                (cond ((consp tag-content)
                       (setf tag-content
                             (multiple-value-list
