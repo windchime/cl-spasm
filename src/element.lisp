@@ -120,7 +120,7 @@
                (cond ((/= (length body) 1)
                       (setf tag-content (car (last body)))))))
       (cond (id (setf tag-attrs (merge-plists `(:id ,id) tag-attrs))))
-      (cond (classes 
+      (cond (classes
               (setf tag-attrs (merge-plists `(:class ,classes) tag-attrs))))
       (cond (map-attrs
               (list tag (merge-plists tag-attrs map-attrs) tag-content))
