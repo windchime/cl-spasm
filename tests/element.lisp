@@ -161,48 +161,51 @@
 
 (addtest (normalize-element-test-case)
   test-just-tag
-  (ensure-same '("p" nil nil) (normalize-element '(:p))))
+  (ensure-same '("p" nil nil) (multiple-value-list (normalize-element '(:p)))))
 
 (addtest (normalize-element-test-case)
   test-tag-and-content
-  (ensure-same '("p" nil "some text") (normalize-element '(:p "some text")))
+  (ensure-same
+    '("p" nil "some text")
+    (multiple-value-list (normalize-element '(:p "some text"))))
   (ensure-same
     '("p" (:class "some-style") "some text")
-    (normalize-element '(:p :class "some-style" "some text")))
+    (multiple-value-list
+      (normalize-element'(:p :class "some-style" "some text"))))
   (ensure-same
     '("p" (:id "p0" :class "some-style") "some text")
-    (normalize-element
-      '(:p :id "p0" :class "some-style" "some text"))))
+    (multiple-value-list
+      (normalize-element '(:p :id "p0" :class "some-style" "some text")))))
 
 (addtest (normalize-element-test-case)
   test-tag-no-content
   (ensure-same
     '("img" (:src "./loldogs.jpg") nil)
-    (normalize-element '(:img :src "./loldogs.jpg")))
+    (multiple-value-list (normalize-element '(:img :src "./loldogs.jpg"))))
   (ensure-same
     '("img" (:src "./loldogs.jpg" :class "my-images") nil)
-    (normalize-element
-      '(:img :src "./loldogs.jpg" :class "my-images")))
+    (multiple-value-list (normalize-element
+      '(:img :src "./loldogs.jpg" :class "my-images"))))
   (ensure-same
     '("div" (:id "cssid") nil)
-    (normalize-element
-      '(:div#cssid)))
+    (multiple-value-list (normalize-element
+      '(:div#cssid))))
   (ensure-same
     '("div" (:class "class1") nil)
-    (normalize-element
-      '(:div.class1)))
+    (multiple-value-list (normalize-element
+      '(:div.class1))))
   (ensure-same
     '("div" (:class "class1" :id "cssid") nil)
-    (normalize-element
-      '(:div#cssid.class1)))
+    (multiple-value-list (normalize-element
+      '(:div#cssid.class1))))
   (ensure-same
     '("div" (:class "class1 class2 class3" :id "cssid") nil)
-    (normalize-element
-      '(:div#cssid.class1.class2.class3)))
+    (multiple-value-list (normalize-element
+      '(:div#cssid.class1.class2.class3))))
   (ensure-same
     '("div" (:id "cssid" :class "class1 class2 class3" :name "aname") nil)
-    (normalize-element
-      '(:div#cssid.class1.class2.class3 :name "aname"))))
+    (multiple-value-list (normalize-element
+      '(:div#cssid.class1.class2.class3 :name "aname")))))
 
 
 ;;; unit tests for element.make-element
@@ -234,45 +237,45 @@
 
 (addtest (render-element-test-case)
   test-just-tag
-  (ensure-same '("p" nil nil) (normalize-element '(:p))))
+  (ensure-same "<p />" (render-element '(:p))))
 
-(addtest (normalize-element-test-case)
+(addtest (render-element-test-case)
   test-tag-and-content
-  (ensure-same '("p" nil "some text") (render-element '(:p "some text")))
+  (ensure-same "<p>some text</p>" (render-element '(:p "some text")))
   (ensure-same
-    '("p" (:class "some-style") "some text")
+    "<p class='some-style'>some text</p>"
     (render-element '(:p :class "some-style" "some text")))
   (ensure-same
-    '("p" (:id "p0" :class "some-style") "some text")
+    "<p id='p0' class='some-style'>some text</p>"
     (render-element
       '(:p :id "p0" :class "some-style" "some text"))))
 
 (addtest (render-element-test-case)
   test-tag-no-content
   (ensure-same
-    '("img" (:src "./loldogs.jpg") nil)
+    "<img src='./loldogs.jpg' />"
     (render-element '(:img :src "./loldogs.jpg")))
   (ensure-same
-    '("img" (:src "./loldogs.jpg" :class "my-images") nil)
+    "<img src='./loldogs.jpg' class='my-images' />"
     (render-element
       '(:img :src "./loldogs.jpg" :class "my-images")))
   (ensure-same
-    '("div" (:id "cssid") nil)
+    "<div id='cssid' />"
     (render-element
       '(:div#cssid)))
   (ensure-same
-    '("div" (:class "class1") nil)
+    "<div class='class1' />"
     (render-element
       '(:div.class1)))
   (ensure-same
-    '("div" (:class "class1" :id "cssid") nil)
+    "<div class='class1' id='cssid' />"
     (render-element
       '(:div#cssid.class1)))
   (ensure-same
-    '("div" (:class "class1 class2 class3" :id "cssid") nil)
+    "<div class='class1 class2 class3' id='cssid' />"
     (render-element
       '(:div#cssid.class1.class2.class3)))
   (ensure-same
-    '("div" (:id "cssid" :class "class1 class2 class3" :name "aname") nil)
+    "<div id='cssid' class='class1 class2 class3' name='aname' />"
     (render-element
       '(:div#cssid.class1.class2.class3 :name "aname"))))

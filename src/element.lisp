@@ -125,8 +125,8 @@
       (cond (classes
               (setf tag-attrs (merge-plists `(:class ,classes) tag-attrs))))
       (cond (map-attrs
-              (list tag (merge-plists tag-attrs map-attrs) tag-content))
-            (t (list tag tag-attrs tag-content))))))
+              (values tag (merge-plists tag-attrs map-attrs) tag-content))
+            (t (values tag tag-attrs tag-content))))))
 
 
 (defun make-element (tag-name &key attrs content)
