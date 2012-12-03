@@ -120,7 +120,11 @@
                ;; long, let's set the tag content to the last element of the
                ;; body
                (cond ((/= (length body) 1)
-                      (setf tag-content (car (last body)))))))
+                      (setf tag-content (car (last body)))))
+               (cond ((consp tag-content)
+                      (setf tag-content
+                            (multiple-value-list
+                              (normalize-element tag-content)))))))
       (cond (id (setf tag-attrs (merge-plists `(:id ,id) tag-attrs))))
       (cond (classes
               (setf tag-attrs (merge-plists `(:class ,classes) tag-attrs))))
@@ -147,4 +151,9 @@
   "
   (multiple-value-bind
     (tag attrs content) (normalize-element body)
+    (cond ((consp content)
+           (setf content (make-element
+                           (car content)
+                           :attrs (cadr content)
+                           :content (caddr content)))))
     (make-element tag :attrs attrs :content content)))

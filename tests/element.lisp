@@ -279,3 +279,11 @@
     "<div id='cssid' class='class1 class2 class3' name='aname' />"
     (render-element
       '(:div#cssid.class1.class2.class3 :name "aname"))))
+
+(addtest (render-element-test-case)
+  test-nested
+  (ensure-same
+    "<ul><li>point1</li></ul>"
+    (render-element
+      '(:ul (:li "point1")))))
+
