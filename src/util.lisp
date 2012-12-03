@@ -66,8 +66,14 @@
   p2)
 
 
-(defun ends-in-pair? (mixed-data)
+(defun ends-in-pair? (body)
   "
-  Test to see if the last two elements of a list constitute a key/data pair.
+  Check if the last two components of an HTML S-expression constitute a
+  key/data pair.
+
+  Note that for body of length 2, the first component will be the tag (in some
+  form), not an attr pair, so the second (last element) in that case will be
+  the content.
   "
-  (keywordp (cadr (reverse mixed-data))))
+  (cond ((= (length body) 2) nil)
+        (t (keywordp (cadr (reverse body))))))
