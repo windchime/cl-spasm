@@ -24,6 +24,7 @@
     #:normalize-element
     #:ordered-list
     #:parse-initial-tag
+    #:render-element
     #:unordered-list
     ; form
     #:check-box

@@ -220,4 +220,59 @@
     (make-element "p" :content "some content"))
   (ensure-same
     "<p class='section'>some content</p>"
-    (make-element "p" :attrs '(:class "section") :content "some content")))
+    (make-element "p" :attrs '(:class "section") :content "some content"))
+  (ensure-same
+    "<p class='section' name='aname'>some content</p>"
+    (make-element "p"
+                  :attrs '(:class "section" :name "aname")
+                  :content "some content")))
+
+
+;;; unit tests for element.render-element
+;;;
+(deftestsuite render-element-test-case (spasm-test-suite) ())
+
+(addtest (render-element-test-case)
+  test-just-tag
+  (ensure-same '("p" nil nil) (normalize-element '(:p))))
+
+(addtest (normalize-element-test-case)
+  test-tag-and-content
+  (ensure-same '("p" nil "some text") (render-element '(:p "some text")))
+  (ensure-same
+    '("p" (:class "some-style") "some text")
+    (render-element '(:p :class "some-style" "some text")))
+  (ensure-same
+    '("p" (:id "p0" :class "some-style") "some text")
+    (render-element
+      '(:p :id "p0" :class "some-style" "some text"))))
+
+(addtest (render-element-test-case)
+  test-tag-no-content
+  (ensure-same
+    '("img" (:src "./loldogs.jpg") nil)
+    (render-element '(:img :src "./loldogs.jpg")))
+  (ensure-same
+    '("img" (:src "./loldogs.jpg" :class "my-images") nil)
+    (render-element
+      '(:img :src "./loldogs.jpg" :class "my-images")))
+  (ensure-same
+    '("div" (:id "cssid") nil)
+    (render-element
+      '(:div#cssid)))
+  (ensure-same
+    '("div" (:class "class1") nil)
+    (render-element
+      '(:div.class1)))
+  (ensure-same
+    '("div" (:class "class1" :id "cssid") nil)
+    (render-element
+      '(:div#cssid.class1)))
+  (ensure-same
+    '("div" (:class "class1 class2 class3" :id "cssid") nil)
+    (render-element
+      '(:div#cssid.class1.class2.class3)))
+  (ensure-same
+    '("div" (:id "cssid" :class "class1 class2 class3" :name "aname") nil)
+    (render-element
+      '(:div#cssid.class1.class2.class3 :name "aname"))))

@@ -1,10 +1,12 @@
 (in-package #:spasm)
 
+
 (defvar *regex-id-class*
   "([^ .#]+)(?:#([^ .#]+))?(?:\.([^ #]+))?"
   "
   A regular expression for splitting a tag by CSS id and CSS class name.
   ")
+
 
 (defvar *container-tags*
   '(:a :article :aside :b :body :canvas :dd :div :dl :dt :em :fieldset :footer
@@ -15,11 +17,13 @@
   A list of elements that need an explicit ending tag when rendered.
   ")
 
+
 (defun container-tag? (tag)
   "
   A convenience function for testing wheter a tag is a container tag or not.
   "
   (cond ((member tag *container-tags*) t)))
+
 
 (defun coerce-key (key)
   "
@@ -31,12 +35,14 @@
   (cond ((symbolp key) (string-downcase (symbol-name key)))
         (t key)))
 
+
 (defun html-attr (key datum)
   "
   Given a key/datum pair, create an HTML/XML attribute.
   "
   (concat " " (coerce-key key) "='"
           (html-entities:encode-entities datum) "'"))
+
 
 (defun make-attrs (attrs)
   "
@@ -51,6 +57,7 @@
   (apply 'concat
          (mapcar #'(lambda (x) (apply 'html-attr x)) attrs)))
 
+
 (defun make-tag (tag-name &key attrs closing empty)
   "
   Make an opening or closing HTML tag.
@@ -60,6 +67,7 @@
         (closing (concat "</" tag-name ">"))
         (empty (concat "<" tag-name " />"))
         (t (concat "<" tag-name ">"))))
+
 
 (defun parse-initial-tag (tag &key (as-list nil))
   "
@@ -79,12 +87,6 @@
     (cond (as-list (list tag-name id classes))
           (t (values tag-name id classes)))))
 
-(defun make-element (tag-name &key attrs content)
-  ""
-  (cond (content ())
-        ((container-tag? tag-name) (make-tag tag-name :attrs attrs)
-                                   (make-tag tag-name :closing t))
-        (t (make-tag tag-name :attrs attrs :empty t))))
 
 (defun normalize-element (body)
   "
@@ -125,3 +127,24 @@
       (cond (map-attrs
               (list tag (merge-plists tag-attrs map-attrs) tag-content))
             (t (list tag tag-attrs tag-content))))))
+
+
+(defun make-element (tag-name &key attrs content)
+  "
+  Given a tag string (e.g., 'div', 'br', etc.) and optional plist or attributes
+  and/or tag content, create an HTML string.
+  "
+  (cond ((or content (container-tag? tag-name))
+         (concat (make-tag tag-name :attrs attrs)
+                 (cond (content content))
+                 (make-tag tag-name :closing t)))
+        (t (make-tag tag-name :attrs attrs :empty t))))
+
+
+(defun render-element (body)
+  "
+  Given an HTML S-expression, render it in actual HTML.
+  "
+  (multiple-value-bind
+    (tag attrs content) (normalize-element body)
+    (make-element tag :attrs attrs :content content)))
