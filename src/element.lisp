@@ -122,6 +122,8 @@
                (cond ((/= (length body) 1)
                       (setf tag-content (car (last body)))))
                ; TODO the nested bit here needs a unit test!
+               ;; if the content is a cons and not a string, we need to do some
+               ;; more work... time to recurse
                (cond ((consp tag-content)
                       (setf tag-content
                             (multiple-value-list
@@ -152,6 +154,8 @@
   "
   (multiple-value-bind
     (tag attrs content) (normalize-element body)
+    ; if the content is a cons and not a string, we need to call make element
+    ; on it (it's already been recursively processed by normalize-element)
     (cond ((consp content)
            (setf content (make-element
                            (car content)
