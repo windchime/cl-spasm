@@ -107,11 +107,21 @@
     (tag id classes) (parse-initial-tag (car body))
     (let ((tag-attrs ())
           (map-attrs (cdr body))
-          (tag-content (last body)))
-      (cond ((keywordp (cadr (reverse body))) (setf tag-content nil))
-            (t (setf map-attrs (butlast map-attrs))))
-      (cond (id (append (:id id) tag-attrs))
-            (classes (append (:class classes) tag-attrs)))
+          (tag-content nil))
+      ;; if the body ends in a pair, the last element is not content
+      (cond ((ends-in-pair? body) (setf tag-content nil))
+            ;; if it doesn't end in a pair, then the last element is content
+            ;; and needs to be taken out of the map-attrs
+            (t (setf map-attrs (butlast map-attrs))
+               ;; the body may only be a tag or tag+sytnactic sugar, in which
+               ;; case there is no content; if it's longer than one element
+               ;; long, let's set the tag content to the last element of the
+               ;; body
+               (cond ((/= (length body) 1)
+                      (setf tag-content (car (last body)))))))
+      (cond (id (setf tag-attrs (merge-plists `(:id ,id) tag-attrs))))
+      (cond (classes 
+              (setf tag-attrs (merge-plists `(:class ,classes) tag-attrs))))
       (cond (map-attrs
               (list tag (merge-plists tag-attrs map-attrs) tag-content))
             (t (list tag tag-attrs tag-content))))))

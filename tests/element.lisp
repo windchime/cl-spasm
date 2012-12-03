@@ -105,19 +105,19 @@
 
 ;; without the keyword parameter, return values
 (addtest (parse-initial-tag-test-case)
-  test-tag-only
+  test-tag
   (ensure-same
     '("div" nil nil)
     (multiple-value-list (parse-initial-tag :div))))
 
 (addtest (parse-initial-tag-test-case)
-  test-tag-and-id
+  test-tag-id
   (ensure-same
     '("div" "cssid" nil)
     (multiple-value-list (parse-initial-tag :div#cssid))))
 
 (addtest (parse-initial-tag-test-case)
-  test-tag-id-one-class
+  test-tag-id-class
   (ensure-same
     '("div" "cssid" "class")
     (multiple-value-list (parse-initial-tag :div#cssid.class))))
@@ -131,25 +131,25 @@
 
 ;; with the keyword parameter, return a list
 (addtest (parse-initial-tag-test-case)
-  test-tag-only-with-keyword-arg
+  test-tag-keyword-arg
   (ensure-same
     '("div" nil nil)
     (parse-initial-tag :div :as-list t)))
 
 (addtest (parse-initial-tag-test-case)
-  test-tag-and-id-with-keyword-arg
+  test-tag-id-keyword-arg
   (ensure-same
     '("div" "cssid" nil)
     (parse-initial-tag :div#cssid :as-list t)))
 
 (addtest (parse-initial-tag-test-case)
-  test-tag-id-one-class-with-keyword-arg
+  test-tag-id-class-keyword-arg
   (ensure-same
     '("div" "cssid" "class")
     (parse-initial-tag :div#cssid.class :as-list t)))
 
 (addtest (parse-initial-tag-test-case)
-  test-tag-id-classes-with-keyword-arg
+  test-tag-id-classes-keyword-arg
   (ensure-same
     '("div" "cssid" "class1 class2 class3")
     (parse-initial-tag :div#cssid.class1.class2.class3 :as-list t)))
@@ -161,33 +161,48 @@
 
 (addtest (normalize-element-test-case)
   test-just-tag
-  (ensure-same "" (normalize-element '(:p))))
+  (ensure-same '("p" nil nil) (normalize-element '(:p))))
 
 (addtest (normalize-element-test-case)
   test-tag-and-content
-  (ensure-same "" (normalize-element '(:p "some text")))
+  (ensure-same '("p" nil "some text") (normalize-element '(:p "some text")))
   (ensure-same
-    ""
+    '("p" (:class "some-style") "some text")
     (normalize-element '(:p :class "some-style" "some text")))
   (ensure-same
-    ""
+    '("p" (:id "p0" :class "some-style") "some text")
     (normalize-element
       '(:p :id "p0" :class "some-style" "some text"))))
 
 (addtest (normalize-element-test-case)
   test-tag-no-content
-  ;(ensure-same
-  ;  ""
-  ;  (normalize-element '(:img :src "./loldogs.jpg") :as-list t))
-  ;(ensure-same
-  ;  ""
-  ;  (normalize-element
-  ;    '(:img :src "./loldogs.jpg" :class "my-images")
-  ;    :as-list t))
   (ensure-same
-    ""
+    '("img" (:src "./loldogs.jpg") nil)
+    (normalize-element '(:img :src "./loldogs.jpg")))
+  (ensure-same
+    '("img" (:src "./loldogs.jpg" :class "my-images") nil)
     (normalize-element
-      '(:div#cssid.class1.class2.class3))))
+      '(:img :src "./loldogs.jpg" :class "my-images")))
+  (ensure-same
+    '("div" (:id "cssid") nil)
+    (normalize-element
+      '(:div#cssid)))
+  (ensure-same
+    '("div" (:class "class1") nil)
+    (normalize-element
+      '(:div.class1)))
+  (ensure-same
+    '("div" (:class "class1" :id "cssid") nil)
+    (normalize-element
+      '(:div#cssid.class1)))
+  (ensure-same
+    '("div" (:class "class1 class2 class3" :id "cssid") nil)
+    (normalize-element
+      '(:div#cssid.class1.class2.class3)))
+  (ensure-same
+    '("div" (:id "cssid" :class "class1 class2 class3" :name "aname") nil)
+    (normalize-element
+      '(:div#cssid.class1.class2.class3 :name "aname"))))
 
 
 ;;; unit tests for element.make-element
