@@ -55,5 +55,6 @@
     #:concat
     #:car-pair
     #:cdr-pairs
+    #:ends-in-pair?
     #:get-pairs
     #:merge-plists))
